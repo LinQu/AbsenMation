@@ -4,6 +4,7 @@ import base64
 from PIL import Image
 from colorama import Fore, Back, Style
 import requests
+from term_image.image import AutoImage
 
 
 tanggal = datetime.datetime.now().strftime("%d-%m-%Y")
@@ -112,7 +113,6 @@ data = '------WebKitFormBoundaryU4HkzB1i5fBuUPzK\r\nContent-Disposition: form-da
 
 response = requests.post('https://satgas-covid19.polytechnic.astra.ac.id/mahasiswa/Page_Absensi.aspx',
                          cookies=cookies, headers=headers, data=data)
-print(response.text)
 try:
     if (response.status_code == 200):
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -124,11 +124,13 @@ try:
         with open("qr.png", "wb") as fh:
             fh.write(dec)
             fh.close()
-
+            term_image = Image.open("qr.png")
         print("Absen Berhasil pada tanggal: " + str(datetime.datetime.now()))
 
         img = Image.open('qr.png')
-        img.show()
+        image = AutoImage(img, width=100)
+        print(image)
+
         print(Style.RESET_ALL)
     else:
         print(Fore.RED+"Absen Gagal")

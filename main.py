@@ -3,6 +3,7 @@ import base64
 from PIL import Image
 from colorama import Fore, Back, Style
 import requests
+from term_image.image import AutoImage
 
 # variabel cookies
 
@@ -136,7 +137,7 @@ def download():
         '_ga': 'GA1.3.1016601159.1664154820',
         '_gid': 'GA1.3.1235991604.1669596888',
         'ASP.NET_SessionId': 'u3eaesxroatm4kzyjsypymex',
-        'AbsensiPolmanAstra': polman,
+        'AbsensiPolmanAstra': '7A924858D29A3DF22E00730B79801522D973EAD1C920E18A570354680CFD5E0E61B557548E0DB35456BA4EB69E9882D1930D5A659A452AED0022B3A5EEA8B316C0596089F7C01501B147D20158AC908E28FF0B4818B4E761515618C1DF4193A984CF5F81458E7FB7C371DEE0514DE7419FE5AA768940E9E7E15BE013D36DA3CDBE042E4C3BBE62BA1FDA6F237D9F26B9F5734440A04DA5CDD2DF35E40FF3B4EAAB152493E972C2A174C0FFC3F1F578961670BB0D1E81DFAD5DBC711F5A654619E8C18C760FB0069FB77673AF79DAEF98	',
     }
 
     headers = {
@@ -179,7 +180,8 @@ def download():
                 fh.write(dec)
                 fh.close()
             img = Image.open('qr.png')
-            img.show()
+            image = AutoImage(img, width=100)
+            print(image)
 
             print(Style.RESET_ALL)
         else:
